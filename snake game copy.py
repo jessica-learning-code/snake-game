@@ -19,8 +19,15 @@ VERDE = (0, 255, 0)
 VERMELHO = (255, 0, 0)
 BRANCO = (255, 255, 255)
 
+# Efeitos Sonoros
+pygame.mixer.music.load("snake-game/efeitos_sonoros/No Hope.mp3")
+pygame.mixer.music.play(-1)
+
+comer = pygame.mixer.Sound("snake-game/efeitos_sonoros/SFX_Pickup_01.wav")
+fim = pygame.mixer.Sound("snake-game/efeitos_sonoros/game_over.wav")
+
 # Tamanho do bloco
-TAMANHO = 18
+TAMANHO = 20
 
 # Fonte
 fonte = pygame.font.SysFont("Arial", 25)
@@ -120,6 +127,12 @@ def jogo():
             comida_x = random.randrange(0, LARGURA - TAMANHO, TAMANHO)
             comida_y = random.randrange(0, ALTURA - TAMANHO, TAMANHO)
             comprimento += 1
+            comer.play()
+
+        if game_over:
+            pygame.mixer.music.stop()
+            fim.play()
+
 
         clock.tick(10)
 
