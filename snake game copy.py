@@ -21,10 +21,10 @@ BRANCO = (255, 255, 255)
 
 # Efeitos Sonoros
 pygame.mixer.music.load("snake-game/efeitos_sonoros/No Hope.mp3")
-pygame.mixer.music.play(-1)
 
 comer = pygame.mixer.Sound("snake-game/efeitos_sonoros/SFX_Pickup_01.wav")
 fim = pygame.mixer.Sound("snake-game/efeitos_sonoros/game_over.wav")
+colisao = pygame.mixer.Sound("snake-game/efeitos_sonoros/bing1.wav")
 
 # Tamanho do bloco
 TAMANHO = 20
@@ -43,6 +43,11 @@ def mostrar_pontuacao(pontos): # é uma função criada pelo programador para ex
     texto = fonte.render(f"Pontos: {pontos}", True, BRANCO) #Esse trecho serve para criar o texto da pontuação e desenhá-lo na tela.
     TELA.blit(texto, [10, 10])
 
+def reiniciar_jogo():
+    global pontos, game_over
+    pontos = 0 
+    game_over = False
+
 def jogo():
     x = LARGURA // 2
     y = ALTURA // 2
@@ -59,6 +64,8 @@ def jogo():
     rodando = True
     game_over = False
 
+    pygame.mixer.music.play(-1)
+
     while rodando:
         while game_over:
             TELA.fill(PRETO)
@@ -74,6 +81,11 @@ def jogo():
                         game_over = False
                     if event.key == pygame.K_c:
                         jogo()
+                        reiniciar_jogo
+                        pygame.mixer.music.load("snake-game/efeitos_sonoros/No Hope.mp3")
+                        pygame.mixer.music.play(-1)
+                        
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -98,6 +110,7 @@ def jogo():
         # Colisão com borda
         if x < 0 or x >= LARGURA or y < 0 or y >= ALTURA:
             game_over = True
+            colisao.play()
 
         TELA.fill(PRETO)
 
@@ -115,6 +128,7 @@ def jogo():
         for bloco in cobra[:-1]:
             if bloco == cabeca:
                 game_over = True
+                
 
         desenhar_cobra(cobra)
         mostrar_pontuacao(comprimento - 1)
