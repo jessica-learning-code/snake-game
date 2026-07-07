@@ -20,11 +20,11 @@ VERMELHO = (255, 0, 0)
 BRANCO = (255, 255, 255)
 
 # Efeitos Sonoros
-pygame.mixer.music.load("snake-game/efeitos_sonoros/No Hope.mp3")
+pygame.mixer.music.load("efeitos_sonoros/No Hope.mp3")
 pygame.mixer.music.play(-1)
 
-comer = pygame.mixer.Sound("snake-game/efeitos_sonoros/SFX_Pickup_01.wav")
-fim = pygame.mixer.Sound("snake-game/efeitos_sonoros/game_over.wav")
+comer = pygame.mixer.Sound("efeitos_sonoros/SFX_Pickup_01.wav")
+fim = pygame.mixer.Sound("efeitos_sonoros/game_over.wav")
 
 # Tamanho do bloco
 TAMANHO = 20
@@ -34,10 +34,21 @@ fonte = pygame.font.SysFont("Arial", 25)
 
 clock = pygame.time.Clock() #serve para controlar a velocidade do jogo (FPS) e medir o tempo entre quadros.
 
+
+
 def desenhar_cobra(lista_cobra):
     for bloco in lista_cobra:
-        pygame.draw.circle(TELA, BRANCO, (300,200), 5)
-        pygame.draw.rect(TELA, VERDE, [bloco[0], bloco[1], TAMANHO, TAMANHO])
+        pygame.draw.rect(TELA, VERDE, [bloco[0], bloco[1], TAMANHO, TAMANHO], width= 0, border_radius=7)
+    
+
+    cabeça = lista_cobra[0]      
+
+    centro_x = cabeça[0] + (TAMANHO//4)
+    centro_y = cabeça[1] + (TAMANHO//4)
+    raio_olho = 5
+
+    pygame.draw.circle(TELA, PRETO, (centro_x, centro_y), raio_olho)
+
 
 def mostrar_pontuacao(pontos): # é uma função criada pelo programador para exibir a pontuação do jogo na tela.
     texto = fonte.render(f"Pontos: {pontos}", True, BRANCO) #Esse trecho serve para criar o texto da pontuação e desenhá-lo na tela.
