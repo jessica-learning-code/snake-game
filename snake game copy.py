@@ -6,7 +6,6 @@ pygame.init()                   #inicia o pygame
 pygame.mixer.init()             #inicia o mixer do pygame para sons
 
 
-
 # Configurações da tela
 LARGURA = 600
 ALTURA = 400
@@ -27,7 +26,8 @@ comer = pygame.mixer.Sound("efeitos_sonoros/SFX_Pickup_01.wav")
 fim = pygame.mixer.Sound("efeitos_sonoros/game_over.wav")
 
 # Tamanho do bloco
-TAMANHO = 20
+TAMANHO = 17
+TAMANHO2 = 26
 
 # Fonte
 fonte = pygame.font.SysFont("Arial", 25)
@@ -35,16 +35,14 @@ fonte = pygame.font.SysFont("Arial", 25)
 clock = pygame.time.Clock() #serve para controlar a velocidade do jogo (FPS) e medir o tempo entre quadros.
 
 
-
 def desenhar_cobra(lista_cobra):
     for bloco in lista_cobra:
-        pygame.draw.rect(TELA, VERDE, [bloco[0], bloco[1], TAMANHO, TAMANHO], width= 0, border_radius=7)
+        pygame.draw.rect(TELA, VERDE, [bloco[0], bloco[1], TAMANHO2, TAMANHO], width= 60, border_radius= 30)
     
+    cabeça = lista_cobra[-1]      
 
-    cabeça = lista_cobra[0]      
-
-    centro_x = cabeça[0] + (TAMANHO//4)
-    centro_y = cabeça[1] + (TAMANHO//4)
+    centro_x = cabeça[0] + (TAMANHO//3)
+    centro_y = cabeça[1] + (TAMANHO//3)
     raio_olho = 5
 
     pygame.draw.circle(TELA, PRETO, (centro_x, centro_y), raio_olho)
@@ -54,9 +52,10 @@ def mostrar_pontuacao(pontos): # é uma função criada pelo programador para ex
     texto = fonte.render(f"Pontos: {pontos}", True, BRANCO) #Esse trecho serve para criar o texto da pontuação e desenhá-lo na tela.
     TELA.blit(texto, [10, 10])
 
+
 def jogo():
-    x = LARGURA // 2
-    y = ALTURA // 2
+    x = (LARGURA // 2 // TAMANHO) * TAMANHO
+    y = (ALTURA // 2 // TAMANHO )* TAMANHO
 
     dx = 0
     dy = 0
@@ -112,7 +111,7 @@ def jogo():
 
         TELA.fill(PRETO)
 
-        pygame.draw.rect(TELA, VERMELHO, [comida_x, comida_y, TAMANHO, TAMANHO])
+        pygame.draw.rect(TELA, VERMELHO, [comida_x, comida_y, TAMANHO, TAMANHO],border_radius= 50)
 
         cabeca = []
         cabeca.append(x)
