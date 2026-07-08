@@ -31,6 +31,7 @@ TAMANHO2 = 26
 
 # Fonte
 fonte = pygame.font.SysFont("Arial", 25)
+fonte_titulo = pygame.font.SysFont("Impact", 60)
 
 clock = pygame.time.Clock() #serve para controlar a velocidade do jogo (FPS) e medir o tempo entre quadros.
 
@@ -72,8 +73,18 @@ def jogo():
     while rodando:
         while game_over:
             TELA.fill(PRETO)
-            msg = fonte.render("Game Over! Pressione C para continuar ou Q para sair", True, VERMELHO)
-            TELA.blit(msg, [40, ALTURA // 2])
+            
+            # Título
+            titulo = fonte_titulo.render("GAME OVER", True, VERMELHO)
+            texto_titulo = titulo.get_rect(center=(LARGURA // 2, ALTURA // 2 - 40))
+
+            # Texto
+            msg = fonte.render("Pressione C para Continuar ou Q para Sair", True, VERMELHO)
+            texto_msg = msg.get_rect(center=(LARGURA // 2, ALTURA // 2 + 20))
+
+            TELA.blit(msg, texto_msg)
+            TELA.blit(titulo, texto_titulo)
+
             mostrar_pontuacao(comprimento - 1)
             pygame.display.update()
 
