@@ -95,6 +95,7 @@ def jogo():
                         game_over = False
                     if event.key == pygame.K_c:
                         jogo()
+                        pygame.mixer.music.play(-1)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
